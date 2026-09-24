@@ -82,9 +82,26 @@ function draw() {
 
 function save() {
   draw();
+
+  // 디시콘 규격: 200 x 200
+  const output = document.createElement("canvas");
+  output.width = 200;
+  output.height = 200;
+
+  const outCtx = output.getContext("2d");
+
+  // 현재 완성된 이미지를 비율 그대로 200x200으로 축소
+  outCtx.imageSmoothingEnabled = true;
+  outCtx.imageSmoothingQuality = "high";
+  outCtx.drawImage(
+    canvas,
+    0, 0, canvas.width, canvas.height,
+    0, 0, 200, 200
+  );
+
   const a = document.createElement("a");
-  a.download = (input.value.trim() || "dorong") + ".png";
-  a.href = canvas.toDataURL("image/png");
+  a.download = (input.value.trim() || "ladorong") + ".png";
+  a.href = output.toDataURL("image/png");
   a.click();
 }
 
